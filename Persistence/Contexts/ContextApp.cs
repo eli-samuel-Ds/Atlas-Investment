@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Persistence.Contexts
 {
-    public class Context : DbContext
+    public class ContextApp : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base(options) { }
+        public ContextApp(DbContextOptions<ContextApp> options) : base(options) { }
         public DbSet<Country> Countries { get; set; }
         public DbSet<CountryIndicator> CountryIndicators { get; set; }
         public DbSet<MacroIndicator> MacroIndicators { get; set; }
