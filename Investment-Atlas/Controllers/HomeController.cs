@@ -2,9 +2,9 @@
 
 namespace Investment_Atlas.Controllers
 {
-    public class PaisController : Controller
+    public class HomeController : Controller
     {
-        public IActionResult Paises()
+        public IActionResult Index()
         {
             return View();
         }
