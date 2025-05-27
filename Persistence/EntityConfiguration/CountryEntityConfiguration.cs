@@ -26,6 +26,9 @@ namespace Persistence.EntityConfiguration
             
             builder.HasIndex(c => c.IsoCode)
                    .IsUnique();
+
+            builder.HasIndex(c => c.Name)
+                .IsUnique();
             #endregion
 
             #region Relationships Configuration

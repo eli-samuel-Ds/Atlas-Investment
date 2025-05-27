@@ -1,3 +1,4 @@
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -9,6 +10,12 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ContextApp>(options => 
                                                  options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<CountryService>();
+builder.Services.AddScoped<CountryIndicatorService>();
+builder.Services.AddScoped<MacroIndicatorService>();
+builder.Services.AddScoped<ReturnRateConfigService>();
+builder.Services.AddScoped<SimulationMacroIndicatorService>();
 
 var app = builder.Build();
 
