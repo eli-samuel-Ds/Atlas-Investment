@@ -12,7 +12,8 @@ namespace Application.ViewModels.MacroIndicador
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Es obligatorio.")]
-        [Range(0.01, 1.00, ErrorMessage = "Debe ser entre 0.01 y 1.")]
+        [Range(0.0001, 1.00, ErrorMessage = "Debe ser entre 0.0001 y 1.")]
+        [DisplayFormat(DataFormatString = "{0:F4}", ApplyFormatInEditMode = true)]
         public decimal Weight { get; set; }
 
         [Required]

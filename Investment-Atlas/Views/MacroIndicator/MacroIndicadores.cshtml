@@ -1,0 +1,30 @@
+﻿@model Application.ViewModels.MacroIndicador.MacroIndicatorListViewModel
+@{
+    ViewData["Title"] = "Macroindicadores";
+}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 mb-0">Macroindicadores</h2>
+        <a asp-action="Create" class="btn btn-primary @(Model.TotalWeight >= 1 ? "disabled" : "")">Crear Macroindicador</a>
+    </div>
+    <p>Total de peso asignado: @Model.TotalWeight</p>
+    <div class="row g-4">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-12 col-sm-6 col-lg-4 d-flex">
+                <div class="card shadow-sm flex-fill">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text mb-1"><strong>Peso:</strong> @item.Weight</p>
+                        <p class="card-text mb-1"><strong>Mejor Alto:</strong> @(item.IsHigherBetter ? "Sí" : "No")</p>
+                        <p class="text-muted small mb-3">ID: @item.Id</p>
+                        <div class="mt-auto d-flex justify-content-end gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

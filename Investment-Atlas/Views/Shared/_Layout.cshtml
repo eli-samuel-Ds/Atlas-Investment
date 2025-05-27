@@ -8,22 +8,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Investment_Atlas.styles.css" asp-append-version="true" />
-    <style>
-        /* Refuerzo en caso de que haga falta */
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
-        }
-    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header>
@@ -40,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pais" asp-action="Paises">Paises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Macroindicadores</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MacroIndicator" asp-action="MacroIndicadores">Macroindicadores</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Indicadores</a>
