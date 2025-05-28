@@ -1,4 +1,5 @@
-﻿using Persistence.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.Entities;
 using Persistence.Repositories;
 
@@ -19,8 +20,8 @@ namespace Application.Services
                     MacroIndicatorId = dto.MacroIndicatorId, 
                     Year = dto.Year, 
                     Value = dto.Value, 
-                    Country = null, 
-                    MacroIndicator = null 
+                    Country = null!, 
+                    MacroIndicator = null! 
                 };
 
                 var added = await _repo.AddAsync(entity);
@@ -41,8 +42,8 @@ namespace Application.Services
                     MacroIndicatorId = dto.MacroIndicatorId, 
                     Year = dto.Year, 
                     Value = dto.Value, 
-                    Country = null, 
-                    MacroIndicator = null 
+                    Country = null!, 
+                    MacroIndicator = null! 
                 };
 
                 var updated = await _repo.UpdateAsync(entity.Id, entity);
@@ -67,20 +68,38 @@ namespace Application.Services
         {
             try
             {
-                var e = await _repo.GetByIdAsync(id);
+                var e = await _repo.GetAllQuery()
+                                   .Include(ci => ci.Country)
+                                   .Include(ci => ci.MacroIndicator)
+                                   .FirstOrDefaultAsync(ci => ci.Id == id);
+
                 if (e == null) return null;
-                return new CountryIndicatorDtos { 
-                    Id = e.Id, 
-                    CountryId = e.CountryId, 
-                    MacroIndicatorId = e.MacroIndicatorId, 
-                    Year = e.Year, 
-                    Value = e.Value, 
-                    Country = null, 
-                    MacroIndicator = null 
+
+                return new CountryIndicatorDtos
+                {
+                    Id = e.Id,
+                    CountryId = e.CountryId,
+                    Country = new CountryDtos 
+                    { 
+                        Id = e.Country.Id, 
+                        Name = e.Country.Name, 
+                        IsoCode = e.Country.IsoCode 
+                    },
+                    MacroIndicatorId = e.MacroIndicatorId,
+                    MacroIndicator = new MacroIndicatorDtos 
+                    { 
+                        Id = e.MacroIndicator.Id, 
+                        Name = e.MacroIndicator.Name,
+                        IsHigherBetter = e.MacroIndicator.IsHigherBetter,
+                        Weight = e.MacroIndicator.Weight
+                    },
+                    Year = e.Year,
+                    Value = e.Value
                 };
             }
-            catch { 
-                return null; 
+            catch
+            {
+                return null;
             }
         }
 
@@ -88,19 +107,37 @@ namespace Application.Services
         {
             try
             {
-                var list = await _repo.GetAllListAsync();
-                return list.Select(e => new CountryIndicatorDtos { 
-                    Id = e.Id, 
-                    CountryId = e.CountryId, 
-                    MacroIndicatorId = e.MacroIndicatorId, 
-                    Year = e.Year, 
-                    Value = e.Value, 
-                    Country = null, 
-                    MacroIndicator = null
+                var query = _repo.GetAllQuery()
+                                 .Include(ci => ci.Country)
+                                 .Include(ci => ci.MacroIndicator);
+
+                var list = await query.ToListAsync();
+
+                return list.Select(e => new CountryIndicatorDtos
+                {
+                    Id = e.Id,
+                    CountryId = e.CountryId,
+                    Country = new CountryDtos 
+                    { 
+                        Id = e.Country.Id, 
+                        Name = e.Country.Name, 
+                        IsoCode = e.Country.IsoCode 
+                    },
+                    MacroIndicatorId = e.MacroIndicatorId,
+                    MacroIndicator = new MacroIndicatorDtos 
+                    { 
+                        Id = e.MacroIndicator.Id, 
+                        Name = e.MacroIndicator.Name,
+                        IsHigherBetter = e.MacroIndicator.IsHigherBetter,
+                        Weight = e.MacroIndicator.Weight
+                    },
+                    Year = e.Year,
+                    Value = e.Value
                 }).ToList();
             }
-            catch { 
-                return new(); 
+            catch
+            {
+                return new();
             }
         }
     }

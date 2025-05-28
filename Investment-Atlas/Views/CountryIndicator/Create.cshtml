@@ -1,0 +1,40 @@
+﻿@model Application.ViewModels.CountryIndicador.CountryIndicatorCreateViewModel
+@{
+    ViewData["Title"] = "Crear Indicador por País";
+}
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card shadow-sm w-100" style="max-width: 500px;">
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="mb-0">Crear Indicador</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" novalidate>
+                <div class="mb-3">
+                    <label asp-for="CountryId" class="form-label"></label>
+                    <select asp-for="CountryId" asp-items="@(new SelectList(Model.Countries, "Id", "Name"))" class="form-select"></select>
+                    <span asp-validation-for="CountryId" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MacroIndicatorId" class="form-label"></label>
+                    <select asp-for="MacroIndicatorId" asp-items="@(new SelectList(Model.MacroIndicators, "Id", "Name"))" class="form-select"></select>
+                    <span asp-validation-for="MacroIndicatorId" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Value" class="form-label"></label>
+                    <input asp-for="Value" type="number" step="0.0001" class="form-control" />
+                    <span asp-validation-for="Value" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Year" class="form-label"></label>
+                    <input asp-for="Year" type="number" class="form-control" />
+                    <span asp-validation-for="Year" class="text-danger small"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a asp-action="IndicadorPaises" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

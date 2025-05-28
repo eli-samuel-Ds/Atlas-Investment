@@ -1,0 +1,41 @@
+﻿@model Application.ViewModels.CountryIndicador.CountryIndicatorEditViewModel
+@{
+    ViewData["Title"] = "Editar Indicador por País";
+}
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card shadow-sm w-100" style="max-width: 500px;">
+        <div class="card-header bg-warning text-dark text-center">
+            <h4 class="mb-0">Editar Valor</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post" novalidate>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">País</label>
+                    <input class="form-control" value="@Model.CountryName" disabled />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Macroindicador</label>
+                    <input class="form-control" value="@Model.MacroIndicatorName" disabled />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Año</label>
+                    <input class="form-control" value="@Model.Year" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Value" class="form-label"></label>
+                    <input asp-for="Value" type="number" step="0.0001" class="form-control" />
+                    <span asp-validation-for="Value" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="IndicadorPaises" class="btn btn-outline-secondary">Volver</a>
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
