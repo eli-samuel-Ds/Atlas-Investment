@@ -1,0 +1,47 @@
+﻿@model Application.ViewModels.SimulationMacroIndicator.RankingViewModel
+@{
+    ViewData["Title"] = "Ranking de Países";
+}
+
+<div class="container my-5">
+    <h2 class="h3 mb-4">Ranking de Países - @Model.Year</h2>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Posición</th>
+                    <th>País</th>
+                    <th>Código ISO</th>
+                    <th>Scoring</th>
+                    <th>Tasa de Retorno</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Results != null && Model.Results.Any())
+                {
+                    int pos = 1;
+                    foreach (var r in Model.Results)
+                    {
+                        <tr>
+                            <td>@pos</td>
+                            <td>@r.CountryName</td>
+                            <td>@r.IsoCode</td>
+                            <td>@r.Score.ToString("F4")</td>
+                            <td>@r.ReturnRate.ToString("F4")</td>
+                        </tr>
+                        pos++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No hay datos para mostrar.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a asp-action="Simulation" class="btn btn-secondary">Volver a Configuración</a>
+    </div>
+</div>

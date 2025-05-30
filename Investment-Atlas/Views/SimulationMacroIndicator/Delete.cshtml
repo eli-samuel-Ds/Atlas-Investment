@@ -1,0 +1,23 @@
+﻿@model Application.ViewModels.SimulationMacroIndicator.SimulationMacroIndicatorDeleteViewModel
+@{
+    ViewData["Title"] = "Eliminar Macroindicador de Simulación";
+}
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card shadow-sm w-100 text-center" style="max-width: 450px;">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Eliminar Macroindicador de Simulación</h4>
+        </div>
+        <div class="card-body">
+            <p class="mb-4">¿Está seguro que desea eliminar este macroindicador de la simulación?</p>
+            <h5 class="fw-bold">@Model.MacroIndicatorName (@Model.Weight)</h5>
+            <form asp-action="Delete" method="post" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-center gap-2">
+                    <a asp-action="Simulation" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
