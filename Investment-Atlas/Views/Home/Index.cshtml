@@ -1,1 +1,26 @@
-﻿
+﻿@model Application.ViewModels.Ranking.SelectYearViewModel
+
+@{
+    ViewData["Title"] = "Ranking de Países";
+}
+
+<div class="container my-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Obtener Ranking por Año</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label asp-for="SelectedYear" class="form-label">Año:</label>
+                    <select asp-for="SelectedYear" class="form-select" asp-items="new SelectList(Model.AvailableYears)">
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Obtener Ranking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

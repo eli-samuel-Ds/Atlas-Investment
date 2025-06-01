@@ -1,0 +1,64 @@
+﻿@model Application.ViewModels.Ranking.RankingResultViewModel
+
+@{
+    ViewData["Title"] = "Resultado del Ranking";
+}
+
+<div class="container my-5">
+    <div class="card shadow-sm mx-auto w-100" style="max-width: 800px;">
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="mb-0">Resultado del Ranking</h4>
+        </div>
+        <div class="card-body">
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-warning">
+                    @Model.ErrorMessage
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.MacroIndicatorMaintenanceUrl))
+                {
+                    <a href="@Model.MacroIndicatorMaintenanceUrl" class="btn btn-sm btn-outline-primary mb-2">
+                        Ir al mantenimiento de macroindicadores
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(Model.CountryIndicatorMaintenanceUrl))
+                {
+                    <a href="@Model.CountryIndicatorMaintenanceUrl" class="btn btn-sm btn-outline-primary mb-2">
+                        Ir al mantenimiento de indicadores por país
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre del País</th>
+                                <th>Código ISO</th>
+                                <th>Scoring</th>
+                                <th>Tasa de Retorno Estimada (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.RankingRows)
+                            {
+                                <tr>
+                                    <td>@row.CountryName</td>
+                                    <td>@row.IsoCode</td>
+                                    <td>@row.Score</td>
+                                    <td>@row.ReturnRate</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <div class="d-flex justify-content-end">
+                <a asp-action="Index" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
